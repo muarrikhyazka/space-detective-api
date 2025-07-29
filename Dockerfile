@@ -1,11 +1,14 @@
 # Multi-stage build for Space Detective API
-FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.11-slim as builder
+FROM python:3.11-slim as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Configure APT to use Alibaba Cloud mirrors
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,16 +23,23 @@ WORKDIR /app
 # Copy requirements
 COPY requirements.txt .
 
+# Configure pip to use Alibaba Cloud mirrors for faster downloads
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ && \
+    pip config set global.trusted-host mirrors.aliyun.com
+
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Production stage
-FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.11-slim
+FROM python:3.11-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app
+
+# Configure APT to use Alibaba Cloud mirrors
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
