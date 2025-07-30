@@ -1,8 +1,8 @@
 # Space Detective v2.0 Requirements
 
 # FastAPI and web framework
-fastapi==0.105.0
-uvicorn[standard]==0.24.0
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
 python-multipart==0.0.6
 
 # Database
@@ -38,8 +38,7 @@ regex==2023.10.3
 dashscope==1.14.1
 
 # Utilities
-pydantic==2.5.2
-pydantic-core==2.14.5
+pydantic==1.10.12
 python-dotenv==1.0.0
 aiofiles==23.2.1
 

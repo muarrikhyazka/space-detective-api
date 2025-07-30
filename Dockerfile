@@ -50,8 +50,8 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD python -c "import requests; requests.get('http://localhost:8000/api/health')" || exit 1
 
-# Set default working directory to trial
-WORKDIR /app/chatbot/trial
+# Set default working directory to endpoint
+WORKDIR /app/chatbot/endpoint
 
 # Command to run the application (using standalone API)
-CMD ["/usr/bin/python3.11", "/app/chatbot/endpoint/standalone_api.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/usr/bin/python3.11", "standalone_api.py", "--host", "0.0.0.0", "--port", "8000"]
