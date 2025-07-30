@@ -1,6 +1,6 @@
 # Space Detective v2.0 Requirements
 
-# FastAPI and web framework
+# FastAPI and web framework (compatible with pydantic v1)
 fastapi==0.95.2
 uvicorn[standard]==0.22.0
 python-multipart==0.0.6
@@ -8,7 +8,7 @@ python-multipart==0.0.6
 # Database
 asyncpg==0.29.0
 psycopg2-binary==2.9.9
-sqlalchemy[asyncio]==2.0.23
+sqlalchemy[asyncio]==1.4.48
 
 # Vector database and embeddings
 sentence-transformers==2.2.2
@@ -37,7 +37,7 @@ regex==2023.10.3
 # Alibaba Cloud (optional)
 dashscope==1.14.1
 
-# Utilities
+# Utilities (pydantic v1 for compatibility)
 pydantic==1.10.12
 python-dotenv==1.0.0
 aiofiles==23.2.1
@@ -47,3 +47,7 @@ pytest==7.4.3
 pytest-asyncio==0.21.1
 black==23.11.0
 flake8==6.1.0
+
+# Additional dependencies for stability
+requests==2.31.0
+Pillow==10.1.0
